@@ -8,8 +8,6 @@ define('USERNAME', 'pra22');
 define('PASSWORD', 'zsLR8d2wM');
 define('CONNECTION', 'sql2.njit.edu');
 
-
-
 class dbConnect
 {
   protected static $conn;
@@ -19,7 +17,7 @@ class dbConnect
     {
       self::$conn = new PDO('mysql:host=' . CONNECTION . ';dbname=' . DATABASE, USERNAME, PASSWORD);
       self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      echo '<center><b>Database connected successfully.</b></center> <br>';
+      //echo '<center><b>Database connected successfully.</b></center> <br>';
     } 
     catch (PDOException $e) 
     {
@@ -35,6 +33,24 @@ class dbConnect
     return self::$conn;
   }
 
+}
+
+$obj = new displayoutput();
+class displayoutput
+{
+    public function __construct()
+    {
+        echo "<h1> Table: Accounts </h1>";
+        echo '<h2>Select All Records</h2>';
+        $records = accounts::findAll();
+        $tableGen = table::displayTable($records);
+
+        echo '<h2>Select One Record</h2>';
+        $id=5;
+        $records = accounts::findOne($id);
+        echo '<h3>Record retrieved with id: '.$id.'</h3>';
+        $tableGen = table::displayTable($records);
+    }
 }
 
 abstract class collection 
