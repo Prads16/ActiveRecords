@@ -77,7 +77,6 @@ class todos extends collection
 {
   protected static $modelName = 'todo';
 }
-
  
 $records = accounts::findAll();
 print_r($records);
@@ -104,9 +103,8 @@ class model
 
 }
 
-
-
-class todo extends model {
+class todo extends model 
+{
     public $id;
     public $owneremail;
     public $ownerid;
@@ -115,13 +113,36 @@ class todo extends model {
     public $message;
     public $isdone;
     protected static $modelName = 'todo';
-    public static function getTablename(){
+
+    public static function getTablename()
+    {
         $tableName='todos';
         return $tableName;
     }
 }
 
+class account extends model 
+{
+    public $id;
+    public $email;
+    public $fname;
+    public $lname;
+    public $phone;
+    public $birthday;
+    public $gender;
+    public $password;
+    protected static $modelName = 'account';
+
+    public static function getTablename()
+    {
+        $tableName='accounts';
+        return $tableName;
+    }
+}
+
 $result = todo::delete(2);
+print_r($result);
+$result = account::delete(3);
 print_r($result);
 
 
