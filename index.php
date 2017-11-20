@@ -60,7 +60,7 @@ class displayoutput
         $records = accounts::findAll();
         $tableGen = table::displayTable($records);
 
-        echo "<h2> Insert one record </h2>";
+        /*echo "<h2> Insert one record </h2>";
         $record = new account();
         $record->email = "paul089@gmail.com";
         $record->fname = "Paul";
@@ -71,7 +71,18 @@ class displayoutput
         $record->password="567";
         $record->save();
         $records = accounts::findAll();
+        $tableGen = table::displayTable($records);*/
+
+        echo "<h2>Update a record</h2>";
+        $record = new account();
+        $record->id = 6;
+        $record->fname="John";
+        $record->lname="Smith";
+        $record->gender="male";
+        $record->save();
+        $records = accounts::findAll();
         $tableGen = table::displayTable($records);
+      
 
 
     }
