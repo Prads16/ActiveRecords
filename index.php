@@ -34,10 +34,9 @@ class dbConnect
   }
 
 }
-
-class collection 
+ class collection 
 {
-  protected $html;
+  protected $tableName;
   public static function createdb() 
   {
     $model = new static::$modelName;
@@ -65,8 +64,10 @@ class collection
     $childclass = static::$modelName;
     $statement->setFetchMode(PDO::FETCH_CLASS, $childclass);
     $recordsSet =  $statement->fetchAll();
-    return $recordsSet[0];
+    return $recordsSet;
+    
   }
+
 }
 class accounts extends collection 
 {
@@ -86,6 +87,44 @@ $records = accounts::findOne(4);
 print_r($records);
 $records = todos::findOne(4);
 print_r($records);
+
+class model
+{
+	protected $tableName;
+	
+    public static function delete($id) 
+    {
+        $db = dbConnect::getConnection();
+        $modelName = static::$modelName;
+        $tableName = $modelName::getTablename();
+        $sqlquery = 'DELETE FROM '.$tableName.' WHERE id='.$id;
+        $statement = $db->prepare($sqlquery);
+        $statement->execute();
+    }
+
+}
+
+
+
+class todo extends model {
+    public $id;
+    public $owneremail;
+    public $ownerid;
+    public $createddate;
+    public $duedate;
+    public $message;
+    public $isdone;
+    protected static $modelName = 'todo';
+    public static function getTablename(){
+        $tableName='todos';
+        return $tableName;
+    }
+}
+
+$result = todo::delete(2);
+print_r($result);
+
+
 
 
 
