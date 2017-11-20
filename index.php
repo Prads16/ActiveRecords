@@ -34,7 +34,8 @@ class dbConnect
   }
 
 }
- class collection 
+
+abstract class collection 
 {
   protected $tableName;
   public static function createdb() 
@@ -69,10 +70,12 @@ class dbConnect
   }
 
 }
+
 class accounts extends collection 
 {
   protected static $modelName = 'account';
 }
+
 class todos extends collection 
 {
   protected static $modelName = 'todo';
@@ -87,7 +90,7 @@ print_r($records);
 $records = todos::findOne(4);
 print_r($records);
 
-class model
+abstract class model
 {
 	protected $tableName;
 	
@@ -101,6 +104,24 @@ class model
         $statement->execute();
     }
 
+    private function update()
+    {
+        $modelName=static::$modelName;
+        $tableName = $modelName::getTablename();
+        $arraylist = get_object_vars($this);
+        $separate = " ";
+        $sqlquery = 'UPDATE '.$tableName.' SET ';
+        foreach ($arraylist as $key=>$value)
+        {
+            if( ! empty($value)) 
+            {
+                $sqlquery .= $separate . $key . ' = "'. $value .'"';
+                $separate = ", ";
+            }
+        }
+        $sqlquery .= ' WHERE id='.$this->id;
+        return $sqlquery;
+    }
 }
 
 class todo extends model 
@@ -140,10 +161,6 @@ class account extends model
     }
 }
 
-$result = todo::delete(2);
-print_r($result);
-$result = account::delete(3);
-print_r($result);
 
 
 
