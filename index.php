@@ -135,7 +135,7 @@ abstract class model
         $tableName = $modelName::getTablename();
         $arraylist = get_object_vars($this);
         $separate = " ";
-        $sqlyquery = 'UPDATE '.$tableName.' SET ';
+        $sqlquery = 'UPDATE '.$tableName.' SET ';
         foreach ($arraylist as $key=>$value)
         {
             if( ! empty($value)) 
@@ -186,6 +186,26 @@ class account extends model
     }
 }
 
+$obj = new table();
+class table
+{
+    public static function displayTable($record)
+    {
+        $tableGen = '<table border="1"';
+        foreach($record as $row => $innerArray)
+        {
+            $tableGen .= '<tr>';
+            foreach($innerArray as $innerRow => $value)
+            {
+            	$tableGen .= '<td>' . $value.'</td>';
+
+            }
+            $tableGen .= '</tr>';
+        }
+        $tableGen .= '</table>';
+        print_r($tableGen);
+    }
+}
 
 
 
