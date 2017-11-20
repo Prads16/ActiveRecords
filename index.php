@@ -50,6 +50,30 @@ class displayoutput
         $records = accounts::findOne($id);
         echo '<h3>Record retrieved with id: '.$id.'</h3>';
         $tableGen = table::displayTable($records);
+
+        echo '<h2>Delete one record</h2>';
+        $id=11;
+        $records = account::delete($id);
+        echo "Deleted record with id: $id <br>";
+
+        echo "<h3>Table accounts after delete.</h3>";
+        $records = accounts::findAll();
+        $tableGen = table::displayTable($records);
+
+        echo "<h2> Insert one record </h2>";
+        $record = new account();
+        $record->email = "paul089@gmail.com";
+        $record->fname = "Paul";
+        $record->lname = "Smith";
+        $record->phone="12345";
+        $record->birthday="1994-02-01";
+        $record->gender="male";
+        $record->password="567";
+        $record->save();
+        $records = accounts::findAll();
+        $tableGen = table::displayTable($records);
+
+
     }
 }
 
