@@ -52,7 +52,7 @@ class displayoutput
         $tableGen = table::displayTable($records);
 
         echo '<h2>Delete one record</h2>';
-        $id=11;
+        $id=19;
         $records = account::delete($id);
         echo "Deleted record with id: $id <br>";
 
