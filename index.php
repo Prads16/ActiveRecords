@@ -8,6 +8,8 @@ define('USERNAME', 'pra22');
 define('PASSWORD', 'zsLR8d2wM');
 define('CONNECTION', 'sql2.njit.edu');
 
+
+
 class dbConnect
 {
   protected static $conn;
@@ -81,14 +83,7 @@ class todos extends collection
   protected static $modelName = 'todo';
 }
  
-$records = accounts::findAll();
-print_r($records);
-$records = todos::findAll();
-print_r($records);
-$records = accounts::findOne(4);
-print_r($records);
-$records = todos::findOne(4);
-print_r($records);
+
 
 abstract class model
 {
@@ -104,13 +99,43 @@ abstract class model
         $statement->execute();
     }
 
+    public function save()
+    {
+        if ($this->id != '') 
+        {
+           $sqlquery = $this->update();
+        } 
+        else 
+        {
+           $sqlquery = $this->insert();
+        }
+        $db = dbConnect::getConnection();
+        $statement = $db->prepare($sqlquery);
+        $arraylist = get_object_vars($this);
+        foreach (array_flip($arraylist) as $key=>$value)
+        {
+            $statement->bindParam(":$value", $this->$value);
+        }
+        $statement->execute();
+    }
+    private function insert() 
+    {
+        $modelName=static::$modelName;
+        $tableName = $modelName::getTablename();
+        $arraylist = get_object_vars($this);
+        $colstring = implode(',', array_flip($arraylist));
+        $valstring = ':'.implode(',:', array_flip($arraylist));
+        $sqlquery =  'INSERT INTO '.$tableName.' ('.$colstring.') VALUES ('.$valstring.')';
+        return $sqlquery;
+    }
+
     private function update()
     {
         $modelName=static::$modelName;
         $tableName = $modelName::getTablename();
         $arraylist = get_object_vars($this);
         $separate = " ";
-        $sqlquery = 'UPDATE '.$tableName.' SET ';
+        $sqlyquery = 'UPDATE '.$tableName.' SET ';
         foreach ($arraylist as $key=>$value)
         {
             if( ! empty($value)) 
@@ -160,6 +185,7 @@ class account extends model
         return $tableName;
     }
 }
+
 
 
 
