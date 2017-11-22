@@ -88,7 +88,13 @@ class displayoutput
         echo "<h1> Table: To-dos </h1>";
         echo '<h2>Select All Records</h2>';
         $records = todos::findAll();
-        $tableGen = table::displayTable($records);      
+        $tableGen = table::displayTable($records);    
+
+        echo '<h2>Select One Record</h2>';
+        $id=3;
+        $records = todos::findOne($id);
+        echo '<h3>Record retrieved with id: '.$id.'</h3>';
+        $tableGen = table::displayTable($records);  
 
     }
 }
