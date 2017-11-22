@@ -73,6 +73,7 @@ class displayoutput
         $records = accounts::findAll();
         $tableGen = table::displayTable($records);*/
 
+
         echo "<h2>Update a record</h2>";
         $record = new account();
         $record->id = 6;
@@ -82,8 +83,12 @@ class displayoutput
         $record->save();
         $records = accounts::findAll();
         $tableGen = table::displayTable($records);
-      
+        echo "<h3>Updated the record with id: $record->id.</h3>";
 
+        echo "<h1> Table: To-dos </h1>";
+        echo '<h2>Select All Records</h2>';
+        $records = todos::findAll();
+        $tableGen = table::displayTable($records);      
 
     }
 }
