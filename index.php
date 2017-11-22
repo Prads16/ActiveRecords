@@ -101,7 +101,7 @@ class displayoutput
         $records = todo::delete($id);
         echo "Deleted record with id: $id <br>";
 
-        echo "<h2> Insert one record </h2>";
+        /*echo "<h2> Insert one record </h2>";
         $record = new todo();
         $record->owneremail = "julia16@gmail.com";
         $record->ownerid = "16";
@@ -111,7 +111,18 @@ class displayoutput
         $record->isdone="1";
         $record->save();
         $records = todos::findAll();
+        $tableGen = table::displayTable($records);*/
+
+        echo "<h2>Update a record</h2>";
+        $record = new todo();
+        $record->id = 9;
+        $record->message="Updated record";
+        $record->save();
+        $records = todos::findAll();
         $tableGen = table::displayTable($records);
+        echo "<h3>Updated the record with id: $record->id.</h3>";
+
+
 
     }
 }
