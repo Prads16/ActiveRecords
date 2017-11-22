@@ -96,6 +96,11 @@ class displayoutput
         echo '<h3>Record retrieved with id: '.$id.'</h3>';
         $tableGen = table::displayTable($records);  
 
+        echo '<h2>Delete one record</h2>';
+        $id=5;
+        $records = todo::delete($id);
+        echo "Deleted record with id: $id <br>";
+
     }
 }
 
