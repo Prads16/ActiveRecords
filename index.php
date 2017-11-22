@@ -101,6 +101,18 @@ class displayoutput
         $records = todo::delete($id);
         echo "Deleted record with id: $id <br>";
 
+        echo "<h2> Insert one record </h2>";
+        $record = new todo();
+        $record->owneremail = "julia16@gmail.com";
+        $record->ownerid = "16";
+        $record->createddate = "2017-02-01 00:00:00";
+        $record->duedate="2017-03-04 00:00:00";
+        $record->message="new record added";
+        $record->isdone="1";
+        $record->save();
+        $records = todos::findAll();
+        $tableGen = table::displayTable($records);
+
     }
 }
 
