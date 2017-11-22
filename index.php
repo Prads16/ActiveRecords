@@ -1,8 +1,5 @@
 <?php
 
-ini_set('display_errors','On');
-error_reporting(E_ALL);
-
 define('DATABASE', 'pra22');
 define('USERNAME', 'pra22');
 define('PASSWORD', 'zsLR8d2wM');
@@ -10,12 +7,12 @@ define('CONNECTION', 'sql2.njit.edu');
 
 class dbConnect
 {
-  protected static $conn;
+  protected static $conn; 
   private function __construct()
   {
     try 
     {
-      self::$conn = new PDO('mysql:host=' . CONNECTION . ';dbname=' . DATABASE, USERNAME, PASSWORD);
+      self::$conn = new PDO('mysql:host=' . CONNECTION . ';dbname=' . DATABASE, USERNAME, PASSWORD); 
       self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       //echo '<center><b>Database connected successfully.</b></center> <br>';
     } 
@@ -60,7 +57,7 @@ class displayoutput
         $records = accounts::findAll();
         $tableGen = table::displayTable($records);
 
-        /*echo "<h2> Insert one record </h2>";
+        echo "<h2> Insert one record </h2>";
         $record = new account();
         $record->email = "paul089@gmail.com";
         $record->fname = "Paul";
@@ -71,7 +68,7 @@ class displayoutput
         $record->password="567";
         $record->save();
         $records = accounts::findAll();
-        $tableGen = table::displayTable($records);*/
+        $tableGen = table::displayTable($records);
 
 
         echo "<h2>Update a record</h2>";
@@ -101,7 +98,7 @@ class displayoutput
         $records = todo::delete($id);
         echo "Deleted record with id: $id <br>";
 
-        /*echo "<h2> Insert one record </h2>";
+        echo "<h2> Insert one record </h2>";
         $record = new todo();
         $record->owneremail = "julia16@gmail.com";
         $record->ownerid = "16";
@@ -111,7 +108,7 @@ class displayoutput
         $record->isdone="1";
         $record->save();
         $records = todos::findAll();
-        $tableGen = table::displayTable($records);*/
+        $tableGen = table::displayTable($records);
 
         echo "<h2>Update a record</h2>";
         $record = new todo();
@@ -121,9 +118,6 @@ class displayoutput
         $records = todos::findAll();
         $tableGen = table::displayTable($records);
         echo "<h3>Updated the record with id: $record->id.</h3>";
-
-
-
     }
 }
 
@@ -297,13 +291,4 @@ class table
     }
 }
 
-
-
-
-
-
-
-
-
- 
 ?>
